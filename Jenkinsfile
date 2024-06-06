@@ -19,6 +19,7 @@ pipeline {
                     try {
                         sh '''
                         docker login -u ${myuser} -p ${docker_password}
+                        docker run --privileged --rm tonistiigi/binfmt --install all
                         docker buildx build -f ./Dockerfile -t webapp:latest --platform "linux/arm64,linux/amd64" .
                         docker tag webapp:latest maheshpoojaryneu/csye7125:webapp
                         docker push maheshpoojaryneu/csye7125:webapp
